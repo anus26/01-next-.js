@@ -24,7 +24,7 @@ console.log(response);
     <Image src={meme.url} width={300} height={300} layout='responsive' alt='{name}'/>
 <button className='btn btn-primary mt-3'>
               {/* Dynamically pass the meme id in the Link component */}
-              <Link href={`/meme/${meme.id}`}>Single User</Link>
+              <Link href={`/Meme/${meme.id}`}>Single User</Link>
             </button>
   </div>
 
