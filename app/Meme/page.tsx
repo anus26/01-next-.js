@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { url } from 'inspector'
 interface Meme{
     email:string
     id:number
@@ -17,14 +18,17 @@ console.log(response);
     <div className='flex-wrap text-center' >
 
     <h1>memes maker</h1>
-{response.data.memes.map((meme:Meme)=>{
-  return <div key={meme.id} >
-    <h1>{meme.email}</h1>
-    <h1>{meme.id}</h1>
-    <Image src={meme.url} width={300} height={300} layout='responsive' alt='{name}'/>
+{response.data.memes.map((item:Meme)=>{
+  return <div >
+    {/* <h1>{item.email}</h1> */}
+    <h1>{item.id}</h1>
+    <Image src={item.url} width={200} height={200} layout='responsive' alt='{name}'/>
 <button className='btn btn-primary mt-3'>
               {/* Dynamically pass the meme id in the Link component */}
-              <Link href={`/Meme/${meme.id}`}>Single User</Link>
+              <Link href={ { pathname:"creatememe",
+               query:{url:item.url,
+                id:item.id
+              }}}>generate meme</Link>
             </button>
   </div>
 
