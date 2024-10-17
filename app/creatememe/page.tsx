@@ -1,73 +1,83 @@
-
-
-'use client';
-
-import React, { useState, useRef } from 'react';
+'use client'
+import React, { useRef, useState } from 'react'
 import Image from 'next/image';
 
-// interface Meme {
-//   id: number;
-//   name: string;
-//   url: string;
-// }
-
-const CreateMeme = ({searchParams}:{searchParams:{id:string; url:string}}) => {
-  const [meme, setMeme] = useState<string | null>(null);
-  const text1= useRef<HTMLInputElement>(null)
-  const text2= useRef<HTMLInputElement>(null)
-  console.log(searchParams);
-  
-  
+interface Meme {
+    id: string;
+    url: string;
+    box_count: number;
 
 
-  const createMeme =async(event:React.FormEvent<HTMLFormElement>)=>{
-    event.preventDefault()
-    console.log(text1.current?.value);
-    console.log(text2.current?.value);
-    const data=await fetch( `https://api.imgflip.com/caption_image?template_id=${searchParams.id}&username=anusraza268@gmail.com&password=qadri786&text0=${text1.current?.value}&text1=${text2.current?.value}`,
-      {
-        method:'post'
-      }
-    )
-    const  response =await data.json()
-    console.log(response);
-    setMeme(response.data.url)
+}
+const creatememe = ({ searchParams }: { searchParams: Meme }) => {
+    console.log(searchParams);
     
-  }
-  
+    const [meme, setMeme] = useState<string | null>(null)
+    // const text1 = useRef<HTMLInputElement>(null)
+    // const text2 = useRef<HTMLInputElement>(null)
+    const textInputs = useRef<(HTMLInputElement | null)[]>([])
 
- 
-  
 
 
-  return (
-    <>
-      {/* <h1>Comment for Meme ID: {meme.id}</h1> */}
-      
-{/*      
-   { meme.url&&(
+    const creatememe = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        // console.log(text1.current?.value);
+        // console.log(text2.current?.value);
 
-<Image src={meme.url} width={300} height={300} layout='responsive' alt='{name}' /> 
+        const filledInputs = textInputs.current.map(input => input?.value || '')
+        const boxesParams = filledInputs
+            .map((text, index) => `text${index}=${encodeURIComponent(text)}`)
+            .join('&')
+        // const data=await fetch(`https://api.imgflip.com/caption_image?template_id=${searchParams.id}&username=AnusRaza&password=321qadri&text0=${text1.current?.value}&text1=${text2.current?.value}`
 
+        const data = await fetch(`https://api.imgflip.com/caption_image?template_id=${searchParams.id}&username=AnusRaza&password=321qadri&${boxesParams}`,
+            {
+                method: 'Post'
+
+            })
+        const response = await data.json()
+        console.log(response);
+        setMeme(response.data.url)
+        
+
+    }
+
+    // const getInputs = () => {
+    //     const inputs = [];
+    //     for (let i: number = 0; i < searchParams.box_count; i++) {
+    //         inputs.push(<input key={i} placeholder={`Text ${i + 1}`} />);
+    //         ref={el =>textInputs.current[index]=el}
+    //     }
+    //     return inputs
+    // }
+    const getInputs = () => {
+        return Array.from({ length: searchParams.box_count }).map((_, index) => (
+            <input
+                key={index}
+                placeholder={`Text ${index + 1}`}
+                ref={(el) =>{ textInputs.current[index] = el}}
+            />
+        ));
+        
+    }
+
+    return (
+        <>
+            <h1>creatememe</h1>
+            <Image src={searchParams.url} width={200} height={200} alt='meme' />
+            <div>
+                <form onSubmit={creatememe}>
+                    {/* {Array.from({length:searchParams.box_count}).map((_, index)=>(
+<input type="text" key={index}  placeholder={`Text ${index+1}` } ref={queryParams}/>
+                ))} */}
+                {getInputs()}
+                    <button type='submit'>create meme</button>
+
+                </form>
+            </div>
+            {meme ? <Image src={meme} width={200} height={200} alt='meme' /> : null}
+        </>
     )
-   }
+}
 
- */}
- <h1>createMeme</h1>
-    <Image src={searchParams.url} width={200} height={200} alt='meme'/>
-
-
-    <form onSubmit={createMeme}>
-        <input type="text" placeholder='enter text 1' ref={text1}/>
-        <input type="text" placeholder='enter text 2' ref={text2} />
-        <button type='submit'>create meme</button>
-    </form>
-    {meme ? <Image src={meme} width={200} height={200} alt='meme'/> : null}
-     
-     
-     
-    </>
-  );
-};
-
-export default CreateMeme;
+export default creatememe

@@ -9,3 +9,4 @@ const Singleuser = (props:{ params:{id:string}}) => {
 }
 
 export default Singleuser
+ // const data=await fetch(`https://api.imgflip.com/caption_image?template_id=${searchParams.id}&username=umarprogrammer19&password=Ugsofficial190807&text0=${text1.current?.value}&text1=${text2.current?.value}`,
