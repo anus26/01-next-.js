@@ -16,14 +16,20 @@ const Meme = async () => {
   console.log("DATA======>", response);
   return (
     <>
-      <div className='flex-wrap text-center' >
+      <div  >
 
         <h1>memes maker</h1>
         {response.data.memes.map((item: Meme) => {
           return <div >
             {/* <h1>{item.email}</h1> */}
+          
+
+            
+<div className='flex-wrap justify-center '>
             <h1>{item.id}</h1>
-            <Image src={item.url} width={200} height={200} layout='responsive' alt='{name}' />
+        
+
+            <Image src={item.url} width={300} height={300}  alt='{name}' className='justify-center'/>
             <button className='btn btn-primary mt-3'>
               {/* Dynamically pass the meme id in the Link component */}
               <Link href={{
@@ -35,8 +41,10 @@ const Meme = async () => {
                 }
               }}>generate meme</Link>
             </button>
+              </div>
           </div>
 
+        
         })}
       </div>
     </>
