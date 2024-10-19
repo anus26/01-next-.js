@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Btn from './components/Btn'
+
 import Card from './components/Card'
 const App = () => {
 console.log('my first server component');

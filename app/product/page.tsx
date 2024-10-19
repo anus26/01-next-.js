@@ -18,7 +18,7 @@ console.log(response);
     <div className='flex justify-center gap-5 flex-wrap'>
       {
         response.map((item: id)=>{
-    return <div> 
+    return <div key={item.id}> 
         <h1 key={item.id}>{item.name} {item.username} </h1>
         
         <button className='btn btn-primary'><Link href={`product/${item.id}`}>single user</Link></button>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { url } from 'inspector'
+
 interface Meme {
   email: string
   id: string
@@ -20,7 +20,7 @@ const Meme = async () => {
 
         <h1>memes maker</h1>
         {response.data.memes.map((item: Meme) => {
-          return <div >
+          return <div key={item.id} >
             {/* <h1>{item.email}</h1> */}
           
 

@@ -9,8 +9,9 @@ interface Meme {
 
 
 }
-const creatememe = ({ searchParams }: { searchParams: Meme }) => {
+const Creatememe = ({ searchParams }: { searchParams: Meme }) => {
     console.log(searchParams);
+
     
     const [meme, setMeme] = useState<string | null>(null)
     // const text1 = useRef<HTMLInputElement>(null)
@@ -19,7 +20,7 @@ const creatememe = ({ searchParams }: { searchParams: Meme }) => {
 
 
 
-    const creatememe = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         // console.log(text1.current?.value);
         // console.log(text2.current?.value);
@@ -66,7 +67,7 @@ const creatememe = ({ searchParams }: { searchParams: Meme }) => {
             <h1>creatememe</h1>
             <Image src={searchParams.url} width={200} height={200} alt='meme' />
             <div>
-                <form onSubmit={creatememe}>
+                <form onSubmit={handleSubmit}>
                     {/* {Array.from({length:searchParams.box_count}).map((_, index)=>(
 <input type="text" key={index}  placeholder={`Text ${index+1}` } ref={queryParams}/>
                 ))} */}
@@ -80,4 +81,4 @@ const creatememe = ({ searchParams }: { searchParams: Meme }) => {
     )
 }
 
-export default creatememe
+export default Creatememe
